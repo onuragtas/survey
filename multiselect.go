@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/AlecAivazis/survey/v2/core"
-	"github.com/AlecAivazis/survey/v2/terminal"
+	"github.com/onuragtas/survey/v2/core"
+	"github.com/onuragtas/survey/v2/terminal"
 )
 
 /*
@@ -108,12 +108,12 @@ func (m *MultiSelect) OnChange(key rune, config *PromptConfig) {
 			selectedOpt := options[m.selectedIndex]
 
 			// if we haven't seen this index before
-			if old, ok := m.checked[selectedOpt.Index]; !ok {
+			if old, ok := m.Checked[selectedOpt.Index]; !ok {
 				// set the value to true
-				m.checked[selectedOpt.Index] = true
+				m.Checked[selectedOpt.Index] = true
 			} else {
 				// otherwise just invert the current value
-				m.checked[selectedOpt.Index] = !old
+				m.Checked[selectedOpt.Index] = !old
 			}
 			if !config.KeepFilter {
 				m.filter = ""
@@ -136,14 +136,14 @@ func (m *MultiSelect) OnChange(key rune, config *PromptConfig) {
 		m.VimMode = false
 	} else if key == terminal.KeyArrowRight {
 		for _, v := range options {
-			m.checked[v.Index] = true
+			m.Checked[v.Index] = true
 		}
 		if !config.KeepFilter {
 			m.filter = ""
 		}
 	} else if key == terminal.KeyArrowLeft {
 		for _, v := range options {
-			m.checked[v.Index] = false
+			m.Checked[v.Index] = false
 		}
 		if !config.KeepFilter {
 			m.filter = ""
@@ -177,7 +177,7 @@ func (m *MultiSelect) OnChange(key rune, config *PromptConfig) {
 	tmplData := MultiSelectTemplateData{
 		MultiSelect:   *m,
 		SelectedIndex: idx,
-		Checked:       m.checked,
+		Checked:       m.Checked,
 		ShowHelp:      m.showingHelp,
 		PageEntries:   opts,
 		Config:        config,
@@ -220,7 +220,7 @@ func (m *MultiSelect) filterOptions(config *PromptConfig) []core.OptionAnswer {
 
 func (m *MultiSelect) Prompt(config *PromptConfig) (interface{}, error) {
 	// compute the default state
-	m.checked = make(map[int]bool)
+	m.Checked = make(map[int]bool)
 	// if there is a default
 	if m.Default != nil {
 		// if the default is string values
@@ -230,7 +230,7 @@ func (m *MultiSelect) Prompt(config *PromptConfig) (interface{}, error) {
 					// if the option corresponds to the default
 					if opt == dflt {
 						// we found our initial value
-						m.checked[i] = true
+						m.Checked[i] = true
 						// stop looking
 						break
 					}
@@ -241,7 +241,7 @@ func (m *MultiSelect) Prompt(config *PromptConfig) (interface{}, error) {
 			// go over every index we need to enable by default
 			for _, idx := range defaultIndices {
 				// and enable it
-				m.checked[idx] = true
+				m.Checked[idx] = true
 			}
 		}
 	}
@@ -272,7 +272,7 @@ func (m *MultiSelect) Prompt(config *PromptConfig) (interface{}, error) {
 	tmplData := MultiSelectTemplateData{
 		MultiSelect:   *m,
 		SelectedIndex: idx,
-		Checked:       m.checked,
+		Checked:       m.Checked,
 		PageEntries:   opts,
 		Config:        config,
 	}
@@ -309,7 +309,7 @@ func (m *MultiSelect) Prompt(config *PromptConfig) (interface{}, error) {
 
 	answers := []core.OptionAnswer{}
 	for i, option := range m.Options {
-		if val, ok := m.checked[i]; ok && val {
+		if val, ok := m.Checked[i]; ok && val {
 			answers = append(answers, core.OptionAnswer{Value: option, Index: i})
 		}
 	}
@@ -337,7 +337,7 @@ func (m *MultiSelect) Cleanup(config *PromptConfig, val interface{}) error {
 		MultiSelectTemplateData{
 			MultiSelect:   *m,
 			SelectedIndex: m.selectedIndex,
-			Checked:       m.checked,
+			Checked:       m.Checked,
 			Answer:        answer,
 			ShowAnswer:    true,
 			Config:        config,

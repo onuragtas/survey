@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"github.com/AlecAivazis/survey/v2/core"
-	"github.com/AlecAivazis/survey/v2/terminal"
+	"github.com/onuragtas/survey/v2/core"
+	"github.com/onuragtas/survey/v2/terminal"
 	"golang.org/x/term"
 )
 

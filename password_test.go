@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/AlecAivazis/survey/v2/core"
 	expect "github.com/Netflix/go-expect"
+	"github.com/onuragtas/survey/v2/core"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/AlecAivazis/survey/v2/terminal"
 	pseudotty "github.com/kr/pty"
+	"github.com/onuragtas/survey/v2/terminal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
