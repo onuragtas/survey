@@ -31,7 +31,7 @@ type MultiSelect struct {
 	Filter        func(filter string, value string, index int) bool
 	filter        string
 	selectedIndex int
-	checked       map[int]bool
+	Checked       map[int]bool
 	showingHelp   bool
 }
 
